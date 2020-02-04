@@ -36,8 +36,11 @@ func makeRoutes() -> Routes {
 	var routes = Routes()
     // Add a default route which lets us serve the static index.html file
 	routes.add(method: .get, uri: "*", handler: { request, response in
-		//StaticFileHandler(documentRoot: "~/Documents/develop/mintycode/server/server-app/swift/perfect/example/Perfect-WebSocketsServer/webroot", allowResponseFilters: true).handleRequest(request: request, response: response)
-        StaticFileHandler(documentRoot: "./webroot", allowResponseFilters: true).handleRequest(request: request, response: response)
+        #if os(Linux)
+            StaticFileHandler(documentRoot: "./webroot", allowResponseFilters: true).handleRequest(request: request, response: response)
+        #else
+            StaticFileHandler(documentRoot: "~/Documents/develop/mintycode/server/server-app/swift/perfect/example/WS_EchoTest_Server/webroot", allowResponseFilters: true).handleRequest(request: request, response: response)
+        #endif
 	})
     
     // Add the endpoint for the WebSocket example system
