@@ -1,0 +1,14 @@
+
+.build/checkouts/Perfect-COpenSSL/
+.build/.DS_Store
+.build/checkouts/Perfect-Crypto/
+.build/checkouts/Perfect-CZlib-src/
+.build/checkouts/Perfect-HTTP/
+.build/checkouts/Perfect-HTTPServer/
+.build/checkouts/Perfect-Net/
+.build/checkouts/Perfect-Thread/
+.build/checkouts/Perfect-WebSockets/
+.build/checkouts/PerfectLib/
+.build/repositories/Perfect-CZlib-src-13b32b02/.DS_Store
+WS_EchoTest_Server.xcodeproj/project.xcworkspace/xcuserdata/luca.xcuserdatad/UserInterfaceState.xcuserstate
+*.xcuserstate
