@@ -18,5 +18,5 @@ RUN swift build -c release
 FROM swift:slim
 WORKDIR /root
 COPY --from=builder /root .
-EXPOSE 80/tcp
-CMD [".build/x86_64-unknown-linux/release/WS_EchoTest_Server"] --port 8181
+EXPOSE 8181/tcp
+ENTRYPOINT [".build/x86_64-unknown-linux/release/WS_EchoTest_Server"]
