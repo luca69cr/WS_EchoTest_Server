@@ -10,9 +10,9 @@ RUN apt-get update \
 
 #COPY . .
 
-RUN git clone https://github.com/luca69cr/WS_EchoTest_Server.git /root
+RUN git clone https://github.com/luca69cr/WS_EchoTest_Server.git /root/mintycode
 
-WORKDIR /root
+WORKDIR /root/mintycode
 RUN swift build -c release
 
 FROM swift:slim
