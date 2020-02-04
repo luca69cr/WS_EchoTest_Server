@@ -14,6 +14,6 @@ WORKDIR /root/mintycode/WS_EchoTest_Server
 RUN swift build -c release
 
 FROM swift:slim
-WORKDIR /root
+WORKDIR /root/mintycode/WS_EchoTest_Server
 COPY --from=builder /root/mintycode/WS_EchoTest_Server .
-CMD [".build/x86_64-unknown-linux/release/WS_EchoTest_Server"] --port 8181:8181
+CMD [".build/x86_64-unknown-linux/release/WS_EchoTest_Server"] --port 8181

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		813B5D1423E946E80077D170 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813B5D1323E946E80077D170 /* Application.swift */; };
+		813B5D1B23E94E410077D170 /* WebSocketsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813B5D1A23E94E410077D170 /* WebSocketsHandler.swift */; };
+		813B5D1C23E94E410077D170 /* WebSocketsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813B5D1A23E94E410077D170 /* WebSocketsHandler.swift */; };
 		OBJ_380 /* a_.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* a_.c */; };
 		OBJ_381 /* aes_.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* aes_.c */; };
 		OBJ_382 /* ameth_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* ameth_lib.c */; };
@@ -346,7 +349,6 @@
 		OBJ_831 /* PerfectThread.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PerfectThread::PerfectThread::Product" /* PerfectThread.framework */; };
 		OBJ_832 /* PerfectLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PerfectLib::PerfectLib::Product" /* PerfectLib.framework */; };
 		OBJ_844 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Package.swift */; };
-		OBJ_850 /* WebSocketsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* WebSocketsHandler.swift */; };
 		OBJ_851 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* main.swift */; };
 		OBJ_853 /* PerfectWebSockets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PerfectWebSockets::PerfectWebSockets::Product" /* PerfectWebSockets.framework */; };
 		OBJ_854 /* PerfectHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PerfectHTTPServer::PerfectHTTPServer::Product" /* PerfectHTTPServer.framework */; };
@@ -617,7 +619,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		"COpenSSL::COpenSSL::Product" /* COpenSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = COpenSSL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		813B5D1323E946E80077D170 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		813B5D1523E949350077D170 /* Dockerfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dockerfile; sourceTree = "<group>"; };
+		813B5D1A23E94E410077D170 /* WebSocketsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketsHandler.swift; sourceTree = "<group>"; };
+		"COpenSSL::COpenSSL::Product" /* COpenSSL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = COpenSSL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_100 /* OpenSSLInternal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSSLInternal.swift; sourceTree = "<group>"; };
 		OBJ_101 /* PerfectCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfectCrypto.swift; sourceTree = "<group>"; };
@@ -938,7 +943,6 @@
 		OBJ_87 /* NetEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetEvent.swift; sourceTree = "<group>"; };
 		OBJ_88 /* NetNamedPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetNamedPipe.swift; sourceTree = "<group>"; };
 		OBJ_89 /* NetTCP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetTCP.swift; sourceTree = "<group>"; };
-		OBJ_9 /* WebSocketsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketsHandler.swift; sourceTree = "<group>"; };
 		OBJ_90 /* NetTCPSSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetTCPSSL.swift; sourceTree = "<group>"; };
 		OBJ_91 /* NetUDP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetUDP.swift; sourceTree = "<group>"; };
 		OBJ_92 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/luca/Documents/develop/mintycode/server/server-app/swift/perfect/example/WS_EchoTest_Server/.build/checkouts/Perfect-Net/Package.swift"; sourceTree = "<group>"; };
@@ -1545,7 +1549,7 @@
 			path = ".build/checkouts/Perfect-CZlib-src/PerfectCZlib";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -1556,8 +1560,8 @@
 				OBJ_372 /* webroot */,
 				OBJ_373 /* LICENSE */,
 				OBJ_374 /* README.md */,
+				813B5D1523E949350077D170 /* Dockerfile */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_62 /* include */ = {
@@ -1611,7 +1615,8 @@
 		OBJ_8 /* WS_EchoTest_Server */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_9 /* WebSocketsHandler.swift */,
+				813B5D1A23E94E410077D170 /* WebSocketsHandler.swift */,
+				813B5D1323E946E80077D170 /* Application.swift */,
 				OBJ_10 /* main.swift */,
 			);
 			name = WS_EchoTest_Server;
@@ -2029,6 +2034,11 @@
 			attributes = {
 				LastSwiftMigration = 9999;
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					"COpenSSL::COpenSSL" = {
+						LastSwiftMigration = 1130;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "WS_EchoTest_Server" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2037,7 +2047,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_360 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2518,7 +2528,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_850 /* WebSocketsHandler.swift in Sources */,
+				813B5D1423E946E80077D170 /* Application.swift in Sources */,
+				813B5D1B23E94E410077D170 /* WebSocketsHandler.swift in Sources */,
 				OBJ_851 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2527,6 +2538,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				813B5D1C23E94E410077D170 /* WebSocketsHandler.swift in Sources */,
 				OBJ_878 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2747,7 +2759,8 @@
 		OBJ_377 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEFINES_MODULE = NO;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2767,6 +2780,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = COpenSSL;
 			};
 			name = Debug;
@@ -2774,7 +2789,8 @@
 		OBJ_378 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEFINES_MODULE = NO;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2794,6 +2810,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = COpenSSL;
 			};
 			name = Release;
