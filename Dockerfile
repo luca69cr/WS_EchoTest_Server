@@ -18,7 +18,7 @@ RUN swift build -c release
 FROM swift:slim
 WORKDIR /root
 #COPY --from=builder /root/mintycode .
-COPY --from=builder /root/mintycode.build/x86_64-unknown-linux/release/WS_EchoTest_Server .
+COPY --from=builder /root/mintycode/.build/x86_64-unknown-linux/release/WS_EchoTest_Server .
 #removing mintycode at this point
 RUN rm -r /root/mintycode
 EXPOSE 8181/tcp
