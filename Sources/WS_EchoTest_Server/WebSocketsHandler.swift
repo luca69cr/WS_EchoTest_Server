@@ -52,9 +52,9 @@ func makeRoutes() -> Routes {
             
             // Check to make sure the client is requesting our "echo" service.
             // at this poni validate application domain for use consistent application manager subscription
-            guard protocols.contains("paper.freshmint.it") else {
-                return nil
-            }
+            //guard protocols.contains("paper.freshmint.it") else {
+            //    return nil
+            //}
             
             // Return our service handler.
             print("con socketkey: \(String(describing: request.header(.custom(name: "sec-websocket-key"))))")
