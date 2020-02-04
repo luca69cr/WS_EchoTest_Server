@@ -3,17 +3,20 @@
 
 FROM swift:latest as builder
 
-#COPY . .
-RUN apt-get -y update && apt-get install -y --no-install-recommends apt-utils libssl-dev
-RUN apt-get -y update && apt-get install -y --no-install-recommends apt-utils libcurl4-openssl-dev
-RUN apt-get -y update && apt-get install -y --no-install-recommends apt-utils libpq-dev
-RUN apt-get -y update && apt-get install -y --no-install-recommends apt-utils uuid-dev
-RUN git clone https://github.com/luca69cr/WS_EchoTest_Server.git /root/mintycode
+# Install needed system libraries for perfect
+RUN apt-get update \
+    && apt-get install -y apt-utils libssl-dev libcurl4-openssl-dev libpq-dev uuid-dev --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /root/mintycode/WS_EchoTest_Server
+#COPY . .
+
+RUN git clone https://github.com/luca69cr/WS_EchoTest_Server.git /root
+
+WORKDIR /root
 RUN swift build -c release
 
 FROM swift:slim
-WORKDIR /root/mintycode/WS_EchoTest_Server
-COPY --from=builder /root/mintycode/WS_EchoTest_Server .
+WORKDIR /root
+COPY --from=builder /root .
+EXPOSE 80/tcp
 CMD [".build/x86_64-unknown-linux/release/WS_EchoTest_Server"] --port 8181
