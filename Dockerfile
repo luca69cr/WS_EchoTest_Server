@@ -45,7 +45,7 @@ COPY  --from=builder /root/mintycode/.build/x86_64-unknown-linux/release/WS_Echo
 # Copy the html prj added folder into root
 #************************************
 RUN mkdir ./webroot
-COPY --from=builder /root/mintycode/webroot/index.html .
+COPY --from=builder /root/mintycode/webroot/index.html ./webroot
 
 
 #************************************
