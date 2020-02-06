@@ -17,6 +17,7 @@ import PerfectWebSockets
 import PerfectHTTP
 
 
+
 /// Handle specific application requested with route methodology
 let ApplicationRouteHandler: Route? = Route(method: .get, uri: "/application", handler: {
      request, response in
