@@ -21,10 +21,16 @@ import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
 
+Log.logger = ConsoleLogger()
+var Applications:Routes = Routes()
+Applications.add(HtmRouteHandler!)
+Applications.add(ApplicationRouteHandler!)
+
 do {
     // Launch the HTTP server on port 8181
     //try HTTPServer.launch(name: "websockets server", port: 8181, routes: makeRoutes(), responseFilters: [(try HTTPFilter.contentCompression(data: [:]),.high)])
-    try HTTPServer.launch(name: "websockets server", port: 8181, routes: makeRoutes())
+    //try HTTPServer.launch(name: "websockets server", port: 8181, routes: makeRoutes())
+    try HTTPServer.launch(name: "websockets server", port: 8181, routes: Applications)
 } catch PerfectError.networkError(let err, let msg) {
     print("Network error thrown: \(err) \(msg)")
 }

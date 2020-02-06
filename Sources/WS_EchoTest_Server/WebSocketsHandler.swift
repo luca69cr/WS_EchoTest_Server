@@ -55,7 +55,7 @@ func makeRoutes() -> Routes {
             
             // Check to make sure the client is requesting our "echo" service.
             // at this poni validate application domain for use consistent application manager subscription
-            guard protocols.contains("paper.freshmint.it") else {
+            guard !protocols.contains("") else {
                 return nil
             }
             
@@ -78,13 +78,16 @@ func makeRoutes() -> Routes {
    
             
             //var ApplicationHandler: AnyObject! = nil
-            let ApplicationClass = NSClassFromString("WS_EchoTest_Server.Application1") as! Application.Type
+            //let strprotocol = protocols[0]
+            //let NameOfClass:String = "WS_EchoTest_Server." + protocols[0]
+            let NameOfClass:String =  protocols[0]
+            //let ApplicationClass = NSClassFromString(NameOfClass) as! Application.Type
             //var nsobjectype : NSObject.Type = ApplicationClass as NSObject.Type
-            let ApplicationHandler: Application = ApplicationClass.init()
+            //let ApplicationHandler: Application = ApplicationClass.init()
             
             // Return our service handler.
             
-            return ApplicationHandler
+            return nil
         }).handleRequest(request: request, response: response)
     })
 	return routes
