@@ -24,7 +24,7 @@ import PerfectHTTPServer
 Log.logger = ConsoleLogger()
 var Applications:Routes = Routes()
 Applications.add(HtmRouteHandler!)
-Applications.add(ApplicationRouteHandler!)
+Applications.add(ApplicationRoute!)
 
 do {
     // Launch the HTTP server on port 8181

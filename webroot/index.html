@@ -14,7 +14,7 @@
 
 	function testWebSocket() {
 		//websocket = new WebSocket(wsUri, "WS_EchoTest_Server.Echo");
-        websocket = new WebSocket(wsUri, ["pippo","WS_EchoTest_Server.Echo"]);
+        websocket = new WebSocket(wsUri, ["RESUME","WS_EchoTest_Server.Echo"]);
 		websocket.onopen = function(evt) { onOpen(evt) };
 		websocket.onclose = function(evt) { onClose(evt) };
 		websocket.onmessage = function(evt) { onMessage(evt) };
@@ -23,6 +23,7 @@
 
 	function onOpen(evt) {
 		writeToScreen("CONNECTED");
+        //websocket.send("APPKEY:");
 	}
 
 	function onClose(evt) {
@@ -30,7 +31,12 @@
 	}
 
 	function onMessage(evt) {
-		writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'<\/span>');
+        var myObj = JSON.parse(evt.data);
+        var myMsg = myObj.appMsg;
+        if (myMsg=="echo"){
+            var myData= myObj.appDataDic.data;
+            writeToScreen('<span style="color: blue;">RESPONSE: ' + myData+'<\/span>');
+        }
 	}
 
 	function onError(evt) {
@@ -38,8 +44,16 @@
 	}
 
 	function doSend() {
+        var myMessage = new Object();
+        myMessage._jsonobjid="ApplicationMessage";
+        myMessage.evtSRtime=0;
+        myMessage.appKey= null;
+        myMessage.appMsg= "SENDMSG";
+        myMessage.appDataDic= {data: input.value}
+        
+        var myJSONMsg = JSON.stringify(myMessage);
 		writeToScreen('<span style="color: red;">SENDING:<\/span> ' + input.value);
-		websocket.send(input.value);
+		websocket.send(myJSONMsg);
 	}
 
 	function writeToScreen(message) {
