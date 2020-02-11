@@ -32,9 +32,9 @@
 
 	function onMessage(evt) {
         var myObj = JSON.parse(evt.data);
-        var myMsg = myObj.appMsg;
-        if (myMsg=="echo"){
-            var myData= myObj.appDataDic.data;
+        var myMsg = myObj.code;
+        if (myMsg==0x02){
+            var myData= myObj.DataDic.data;
             writeToScreen('<span style="color: blue;">RESPONSE: ' + myData+'<\/span>');
         }
 	}
@@ -45,11 +45,12 @@
 
 	function doSend() {
         var myMessage = new Object();
-        myMessage._jsonobjid="ApplicationMessage";
+        myMessage._jsonobjid="DataEvent";
         myMessage.evtSRtime=0;
-        myMessage.appKey= null;
-        myMessage.appMsg= "SENDMSG";
-        myMessage.appDataDic= {data: input.value}
+        myMessage.evtClassName="DataEvent";
+        myMessage.code= 0x02;
+        myMessage.appKey= "";
+        myMessage.DataDic= {data: input.value}
         
         var myJSONMsg = JSON.stringify(myMessage);
 		writeToScreen('<span style="color: red;">SENDING:<\/span> ' + input.value);

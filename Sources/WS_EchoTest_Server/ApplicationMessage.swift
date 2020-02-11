@@ -22,40 +22,40 @@ extension Date {
 
 
 class Event: JSONConvertibleObject {
-    var evtClass: String = ""
+    var evtClassName: String = ""
     /// is a server timestamp for message send or received
-    var evtSRtime: Int64 = Date().toMillis()
+    let evtSRtime: Int64 = Date().toMillis()
+    var code: UInt8 = 0x00
 }
 
-
-class SignalEvent: Event {
-    enum CodeType : UInt8 {
-        case INVALID = 0x00,
-        NONAME = 0x01,
-        HELLO = 0x02
-    }
+/**
+ 
+ */
+ class SignalEvent: Event {
     static let registerName = "SignalEvent"
-    //var evtClassName: String = ""
+    //var evtClassName: String = "Event"
+    /// is a server timestamp for message send or received
+    //let evtSRtime: Int64 = Date().toMillis()
+    //var code: UInt8 = 0x00
     var appKey: String = ""
-    var code: UInt8 = 0x00
-    
-
+   
     
     override func setJSONValues(_ values: [String : Any]) {
         //self.evtClassName =
-        self.evtClass=SignalEvent.registerName
-        self.evtSRtime = getJSONValue(named: "evtSRtime", from: values, defaultValue: 0)
-        self.appKey = getJSONValue(named: "appKey", from: values, defaultValue: "")
+        self.evtClassName=getJSONValue(named: "evtClassName", from: values, defaultValue: "")
+        //self.evtSRtime = getJSONValue(named: "evtSRtime", from: values, defaultValue: 0)
         self.code = getJSONValue(named: "code", from: values, defaultValue: 0x00)
+        self.appKey = getJSONValue(named: "appKey", from: values, defaultValue: "")
+        
     }
     
     override func getJSONValues() -> [String : Any] {
         return [
             JSONDecoding.objectIdentifierKey:SignalEvent.registerName,
             "evtSRtime": self.evtSRtime,
-            "evtClass": SignalEvent.registerName,
+            "evtClassName": evtClassName,
             "appKey": appKey,
-            "Code": code,
+            "Code": code
         ]
     }
 }
@@ -64,25 +64,27 @@ class SignalEvent: Event {
 /**
  
  */
-class ApplicationMessage: Event {
+ class DataEvent: Event {
     
-    static let registerName = "ApplicationMessage"
+    static let registerName = "DataEvent"
+    /// var evtClassName: String
+    /// is a server timestamp for message send or received
+    ///  evtSRtime: Int64
+    /// var code: UInt8
     var appKey: String = ""
-    var appMsg: String = ""
-    var appDataDic=Dictionary<String, Any>()
-    //var appDataDic: [String:Any] = [:] ///dictionary of data message
-    var appMsgPart = 0
+    //var appMsg: String = ""
+    var DataDic=Dictionary<String, Any>()
+    //var code: UInt8 = 0x00
+    
     
     /**
      
      */
     override func setJSONValues(_ values: [String : Any]) {
-        self.evtClass=ApplicationMessage.registerName
-        self.evtSRtime = getJSONValue(named: "evtSRtime", from: values, defaultValue: 0)
+        self.evtClassName=getJSONValue(named: "evtClassName", from: values, defaultValue: "")
+        self.code = getJSONValue(named: "code", from: values, defaultValue: 0)
         self.appKey = getJSONValue(named: "appKey", from: values, defaultValue: "")
-        self.appMsg = getJSONValue(named: "appMsg", from: values, defaultValue: "")
-        self.appDataDic = getJSONValue(named: "appDataDic", from: values, defaultValue: [:])
-        self.appMsgPart = getJSONValue(named: "appMsgPart", from: values, defaultValue: 0)
+        self.DataDic = getJSONValue(named: "DataDic", from: values, defaultValue: [:])
     }
     
     /**
@@ -90,12 +92,12 @@ class ApplicationMessage: Event {
      */
     override func getJSONValues() -> [String : Any] {
         return [
-            JSONDecoding.objectIdentifierKey:ApplicationMessage.registerName,
+            JSONDecoding.objectIdentifierKey:"DataEvent",
             "evtSRtime": self.evtSRtime,
-            "appKey":appKey,
-            "appMsg":appMsg,
-            "appDataDic":appDataDic,
-            "appMsgPart":appMsgPart
+            "evtClassName": "DataEvent",
+            "code": code,
+            "appKey": appKey,
+            "DataDic": DataDic
         ]
     }
 }

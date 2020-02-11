@@ -124,7 +124,7 @@ class ApplicationHandler: WebSocketSessionHandler {
         /// Check if is in the opening connection time
         if !appChannelOpened  {
             appChannelOpened = true
-            JSONDecoding.registerJSONDecodable(name: ApplicationMessage.registerName, creator: { return ApplicationMessage() })
+            //JSONDecoding.registerJSONDecodable(name: "Event", creator: { return Event() })
             self.appProtocolSelected?._ConnectedTo(channel: self)
         }
         
@@ -164,8 +164,8 @@ class ApplicationHandler: WebSocketSessionHandler {
             do{
                 //let decoded = try string?.jsonDecode() as? ApplicationMessage
                 //self.appProtocolSelected?.onMessage(message: decoded!, type: op, final: fin)
-                let decoded = try string?.jsonDecode() as? Event
-                self.appProtocolSelected?._DispatchMessage(message: decoded!)
+                
+                self.appProtocolSelected?._DispatchMessage(message: string!)
             }catch {
                 return
             }
@@ -177,12 +177,12 @@ class ApplicationHandler: WebSocketSessionHandler {
      
      */
     //func sendMessage (jsonMsg: String, multipart: Bool){
-    func sendMessage (message: Event, multipart: Bool){
+    func sendMessage (message: String, multipart: Bool){
         
         if (self.appSocket != nil)  {
             do {
-                let jsonMsg = try message.jsonEncodedString()
-                appSocket?.sendStringMessage (string: jsonMsg, final: !multipart){
+                
+                appSocket?.sendStringMessage (string: message, final: !multipart){
                     /// This callback is called once the message has been sent.
                     /// Recurse to read and echo new message.
                     //self.handleSession(request: self.appHttpRequest!, socket: self.appSocket!)
