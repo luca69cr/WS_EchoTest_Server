@@ -23,7 +23,7 @@ import PerfectHTTPServer
 
 Log.logger = ConsoleLogger()
 var Applications:Routes = Routes()
-Applications.add(HtmRouteHandler!)
+Applications.add(HtmlRouteHandler!)
 Applications.add(ApplicationRoute!)
 
 do {

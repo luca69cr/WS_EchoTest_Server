@@ -124,7 +124,7 @@ class ApplicationHandler: WebSocketSessionHandler {
         /// Check if is in the opening connection time
         if !appChannelOpened  {
             appChannelOpened = true
-            //JSONDecoding.registerJSONDecodable(name: "Event", creator: { return Event() })
+            //JSONDecoding.registerJSONDecodable(name: "Message", creator: { return Message() })
             self.appProtocolSelected?._ConnectedTo(channel: self)
         }
         
@@ -146,6 +146,7 @@ class ApplicationHandler: WebSocketSessionHandler {
             self.appSocket?.close()
             return
         }
+        Log.debug(message: "Read In")
         appSocket?.readStringMessage {
             /// This callback is provided:
             ///     the received data
@@ -164,13 +165,14 @@ class ApplicationHandler: WebSocketSessionHandler {
             do{
                 //let decoded = try string?.jsonDecode() as? ApplicationMessage
                 //self.appProtocolSelected?.onMessage(message: decoded!, type: op, final: fin)
-                
+                Log.debug(message: "Read Process")
                 self.appProtocolSelected?._DispatchMessage(message: string!)
             }catch {
                 return
             }
             
         }
+        Log.debug(message: "Read Out")
     }
     
     /**

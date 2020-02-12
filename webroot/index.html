@@ -32,10 +32,13 @@
 
 	function onMessage(evt) {
         var myObj = JSON.parse(evt.data);
-        var myMsg = myObj.code;
-        if (myMsg==0x02){
+        var myMsg = myObj.msgCode;
+        if (myMsg=="ECHO"){
             var myData= myObj.DataDic.data;
             writeToScreen('<span style="color: blue;">RESPONSE: ' + myData+'<\/span>');
+        }
+        else if(myMsg=="HELLO"){
+            Greatings()
         }
 	}
 
@@ -43,13 +46,26 @@
 		writeToScreen('<span style="color: red;">ERROR:<\/span> ' + evt.data);
 	}
 
+    function Greatings(){
+        var myMessage = new Object();
+        myMessage._jsonobjid="Message_Data";
+        myMessage.msgServerTime=0;
+        myMessage.msgClass="Message_Data";
+        myMessage.msgCode= "NICE-TO-MEET";
+        myMessage.appKey= null;
+        myMessage.DataDic= {data: input.value}
+     
+        var myJSONMsg = JSON.stringify(myMessage);
+        websocket.send(myJSONMsg);
+    }
+
 	function doSend() {
         var myMessage = new Object();
-        myMessage._jsonobjid="DataEvent";
-        myMessage.evtSRtime=0;
-        myMessage.evtClassName="DataEvent";
-        myMessage.code= 0x02;
-        myMessage.appKey= "";
+        myMessage._jsonobjid="Message_Data";
+        myMessage.msgServerTime=0;
+        myMessage.msgClass="Message_Data";
+        myMessage.msgCode= "SENDTOECHO";
+        myMessage.appKey= null;
         myMessage.DataDic= {data: input.value}
         
         var myJSONMsg = JSON.stringify(myMessage);

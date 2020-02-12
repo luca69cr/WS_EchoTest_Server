@@ -34,12 +34,15 @@ class Application{
      */
     required init(){
         appChannel = nil
+        JSONDecoding.registerJSONDecodable(name: Message_Signal.registerName, creator: { return Message_Signal() })
+        JSONDecoding.registerJSONDecodable(name: Message_Data.registerName, creator: { return Message_Data() })
+        RegisterMessageJSONDecodable()
     }
     
     /**
      
      */
-    func _ConnectedTo(channel: ApplicationHandler){
+    final func _ConnectedTo(channel: ApplicationHandler){
         appChannel = channel
         self.onConnected()
     }
@@ -47,58 +50,61 @@ class Application{
     /**
      
      */
-    func _Disconnected(){
+    final func _Disconnected(){
         appChannel = nil
         self.onDisconnected()
     }
     
-     func _DispatchMessage(message: String) {
-        var decodedEvent:Event
-        var decodedSignal:SignalEvent
-        var decodeDataEvent:DataEvent
+    final func _DispatchMessage(message: String) {
+        var decodedEvent:Message = Message()
         
-        JSONDecoding.registerJSONDecodable(name: DataEvent.registerName, creator: { return DataEvent() })
-        JSONDecoding.registerJSONDecodable(name: SignalEvent.registerName, creator: { return SignalEvent() })
-        do {decodedEvent = try message.jsonDecode() as! Event  }catch{return}
-        switch decodedEvent.evtClassName {
-            ///proces the event with specific event type
-        case "Event":
-            Log.debug(message: "App:\(appKey) message:\(decodedEvent.evtClassName) Warning")
-        case "SignalEvent":
-            do { decodedSignal = try message.jsonDecode() as! SignalEvent}catch {return}
-            self.onSignal(message: decodedSignal)
-        case "DataEvent":
-            //do { decodeDataEvent = try message.jsonDecode() as! DataEvent} catch {return}
-            self.onData(message: decodedEvent as! DataEvent)
+        do { decodedEvent = try message.jsonDecode() as! Message  }catch{return}
+        
+        ///proces the event with specific meaage format
+        switch decodedEvent.msgClass {
+        case "Message":
+            Log.debug(message: "App:\(appKey) message:\(decodedEvent.msgClass) Warning")
+        case "Message_Signal":
+            self.onSignal(message: decodedEvent as! Message_Signal)
+        case "Message_Data":  
+            self.onData(message: decodedEvent as! Message_Data)
         default:
-            Log.debug(message: "App:\(appKey) message:\(decodedEvent.evtClassName) is Invalid")
+            Log.debug(message: "App:\(appKey) message:\(decodedEvent.msgClass) is Invalid")
         }
         /// return on read state
-        self.appChannel?.readMessage()
+        self.appChannel?.readMessage() ///todo: probabily move this on single onMessage
     }
+    
+    
+    func HandShake(){
+        
+    }
+    
+    
     
     /**
      
      */
     
-    func Cache() {
+    final func Cache() {
         
     }
     
     /**
      
      */
-    func Resume() {
+    final func Resume() {
         
     }
     
     /**
-     
+     this a overridable function for your specific Application Class
      */
+    func RegisterMessageJSONDecodable(){return}
     func onConnected(){return}
     func onDisconnected() {return}
-    func onSignal(message: SignalEvent) {return}
-    func onData(message: DataEvent){return}
+    func onSignal(message: Message_Signal) {return}
+    func onData(message: Message_Data){return}
 }
 
 
@@ -106,27 +112,42 @@ class Application{
  
  */
 class Echo: Application {
-    enum DataEventCode:  UInt8 {
-        case INVALID = 0x00
-        case NONAME = 0x01
-        case ECHO = 0x02
-    }
-    override func onData(message: DataEvent) {
+    
+    override func onData(message: Message_Data) {
         
-        ///Implement echo service
-        //let appmsg = message as? ApplicationMessage
-        message.code = DataEventCode.ECHO.rawValue
-        //message.appDataDic = ["data": "pippo"]
-        //let msgToSend = message as DataEvent
+        enum evtCode: String {
+            case INVALID = "INVALID"
+            case NONAME = "NONAME"
+            case SENDTOECHO = "SENDTOECHO"
+            case ECHO = "ECHO"
+        }
+        
+        
+        switch message.msgCode {
+        case evtCode.SENDTOECHO.rawValue :
+            ///Implement echo service
+            let repmessage = Message_Data(code: evtCode.ECHO.rawValue,key: appKey, data: message.DataDic)
+            //message.msgCode = evtCode.ECHO.rawValue
+            do {
+                let jsonMsg = try repmessage.jsonEncodedString()
+                self.appChannel?.sendMessage(message: jsonMsg, multipart: false)
+            }catch{return}
+        default:
+            return
+        }
+    }
+    
+    override func onConnected() {
+        let message: Message_Data = Message_Data(code: "HELLO", key: self.appKey, data: ["data": "is Connected"])
+        //message.appKey = self.appKey
+        //message.DataDic = ["data": "is Connected"]
+        //message.msgCode = "HELLO"
+        
+        Log.debug(message: "App:\(appKey) is Connected")
         do {
             let jsonMsg = try message.jsonEncodedString()
             self.appChannel?.sendMessage(message: jsonMsg, multipart: false)
         }catch{return}
-
-    }
-    
-    override func onConnected() {
-        Log.debug(message: "App:\(appKey) is Connected")
     }
     
     override func onDisconnected() {
